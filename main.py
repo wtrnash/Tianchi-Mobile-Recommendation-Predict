@@ -2,8 +2,8 @@ import pandas as pd
 
 item_data = pd.read_csv("tianchi_fresh_comp_train_item.csv")
 user_data = pd.read_csv("tianchi_fresh_comp_train_user.csv")
-
-print(item_data.info())
+print(user_data.info())
+user_data = user_data.drop_duplicates() # 去重
 print(user_data.info())
 # 取交集
 user_data = pd.merge(user_data, item_data, on='item_id', how='inner')
@@ -27,4 +27,4 @@ for value in user_item_list:
 result_df = pd.DataFrame(final_list)  # 转为DataFrame
 result_df = result_df.drop_duplicates() # 去重
 result_df.rename(columns={0: 'user_id', 1: 'item_id'}, inplace=True)
-result_df.to_csv("tianchi_mobile_recommendation_predict.csv", encoding='utf-8')
+result_df.to_csv("tianchi_mobile_recommendation_predict.csv", encoding='utf-8', index=None)
